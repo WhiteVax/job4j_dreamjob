@@ -57,12 +57,11 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
-        return getId() == post.getId() && Objects.equals(getName(), post.getName())
-                && Objects.equals(getDescription(), post.getDescription());
+        return getId() == post.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getDescription());
+        return Objects.hash(getId());
     }
 }
