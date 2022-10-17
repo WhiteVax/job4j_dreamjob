@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -41,14 +41,16 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя</th>
+                <th scope="col">Вакансия</th>
+                <th scope="col">Дата создания</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="candidate: ${candidates}">
-                <td th:text="${candidate.id}" />
-                <td th:text="${candidate.name}" />
-                <td th:text="${candidate.description}" />
-                <td th:text="${candidate.created}" />
+                <td th:text="${candidate.id}"></td>
+                <td th:text="${candidate.name}"></td>
+                <td th:text="${candidate.description}"></td>
+                <td th:text="${candidate.created}"></td>
             </tr>
             </tbody>
         </table>

@@ -14,15 +14,15 @@ public class PostController {
     private final PostStore postStore = PostStore.instOf();
 
     @GetMapping("/posts")
-    public String post(Model model) {
+    public String posts(Model model) {
         model.addAttribute("posts", postStore.findAll());
         return "posts";
     }
 
     @GetMapping("/formAddPost")
     public String addPost(Model model) {
-        model.addAttribute("post", new Post(1, "Java Developer",
-                "Java, Sql, Spring", LocalDate.of(2022, 10, 9)));
+        model.addAttribute("post", new Post(0, "Название",
+                "Описание", LocalDate.of(2022, 10, 9)));
         return "addPost";
     }
 }
