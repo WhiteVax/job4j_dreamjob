@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 public class PostController {
@@ -23,8 +23,8 @@ public class PostController {
 
     @GetMapping("/formAddPost")
     public String addPost(Model model) {
-        model.addAttribute("post", new Post(0, "Название",
-                "Описание", LocalDate.of(2022, 10, 9)));
+        model.addAttribute("post", new Post(0, "Название вакансии",
+                "Описание вакансии", LocalDateTime.now().toLocalDate()));
         return "addPost";
     }
 
