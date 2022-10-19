@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class PostStore {
     private static final PostStore INST = new PostStore();
-    private static AtomicInteger id = new AtomicInteger(1);
+    private static final AtomicInteger ID = new AtomicInteger(1);
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -32,8 +32,16 @@ public class PostStore {
     }
 
     public void add(Post post) {
-        post.setId(id.getAndIncrement());
+        post.setId(ID.getAndIncrement());
         post.setCreated(LocalDate.now());
         posts.put(post.getId(), post);
+    }
+
+    public Post findById(int id) {
+        return posts.get(id);
+    }
+
+    public void update(Post post) {
+        posts.replace(post.getId(), post);
     }
 }
