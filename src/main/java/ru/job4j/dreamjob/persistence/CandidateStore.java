@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.store;
+package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.model.Candidate;
 
@@ -14,7 +14,7 @@ public class CandidateStore {
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
-    private CandidateStore() {
+    public CandidateStore() {
         candidates.put(1, new Candidate(1, "Ivan", "Junior",
                 LocalDate.of(2021, 12, 13)));
         candidates.put(2, new Candidate(2, "Dmitry", "Junior",

@@ -1,4 +1,4 @@
-package ru.job4j.dreamjob.store;
+package ru.job4j.dreamjob.persistence;
 
 import ru.job4j.dreamjob.model.Post;
 
@@ -14,7 +14,7 @@ public class PostStore {
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
-    private PostStore() {
+    public PostStore() {
         posts.put(1, new Post(1, "Java Developer", "Spring, Java",
                 LocalDate.of(2022, 5, 13)));
         posts.put(2, new Post(2, "Java Developer", "Spring, Java",
