@@ -3,10 +3,13 @@ package ru.job4j.dreamjob.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.store.CandidateStore;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Controller
 public class CandidateController {
@@ -20,8 +23,26 @@ public class CandidateController {
 
     @GetMapping("/formAddCandidate")
     public String addCandidate(Model model) {
-        model.addAttribute("candidate", new Candidate(0, "имя",
-                "название вакансии", LocalDate.of(2022, 10, 17)));
+        model.addAttribute("candidate", new Candidate(0, "Имя",
+                "Описание навыков", LocalDateTime.now().toLocalDate()));
         return "addCandidate";
+    }
+
+    @PostMapping("/createCandidate")
+    public String createCandidate(@ModelAttribute Candidate candidate) {
+        canStore.add(candidate);
+        return "redirect:/candidates";
+    }
+
+    @GetMapping("/formUpdateCandidate/{candidateId}")
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+        model.addAttribute("candidate", canStore.findById(id));
+        return "updateCandidate";
+    }
+
+    @PostMapping("/updateCandidate")
+    public String updateCandidate(@ModelAttribute Candidate candidate) {
+        canStore.update(candidate);
+        return "redirect:/candidates";
     }
 }

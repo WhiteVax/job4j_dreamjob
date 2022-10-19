@@ -16,6 +16,9 @@ public class Candidate {
         this.created = created;
     }
 
+    public Candidate() {
+    }
+
     public int getId() {
         return id;
     }
