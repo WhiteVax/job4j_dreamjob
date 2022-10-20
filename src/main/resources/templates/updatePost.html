@@ -46,6 +46,8 @@
                         <label for="name">Имя</label>
                         <input type="text" class="form-control" name="name" id="name" th:field="*{name}">
                     </div>
+                    <input type="hidden" name="description" th:field="*{description}"/>
+                    <input type="hidden" name="created" th:field="*{created}"/>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>

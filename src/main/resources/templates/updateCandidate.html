@@ -50,6 +50,7 @@
                         <label for="description">Описание навыков кандидата</label>
                         <input type="text" class="form-control" name="name" id="description" th:field="*{description}">
                     </div>
+                    <input type="hidden" name="created" th:field="*{created}"/>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>

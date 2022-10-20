@@ -42,7 +42,6 @@ public class CandidateStore {
     }
 
     public void update(Candidate candidate) {
-        candidate.setCreated(findById(candidate.getId()).getCreated());
         candidates.replace(candidate.getId(), candidate);
     }
 }
