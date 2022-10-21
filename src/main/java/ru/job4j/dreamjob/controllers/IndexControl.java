@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.controllers;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * Любое веб приложение должно иметь минимум три слоя: controllers, service, persistence.
  */
 @Controller
+@ThreadSafe
 public class IndexControl {
 
     @GetMapping("/index")

@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.controllers;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import ru.job4j.dreamjob.persistence.PostStore;
 import java.time.LocalDateTime;
 
 @Controller
+@ThreadSafe
 public class PostController {
 
     private final PostStore postStore;
