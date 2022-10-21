@@ -8,6 +8,7 @@ public class Post {
     private String name;
     private String description;
     private LocalDate created;
+    private boolean visible;
 
     public Post(int id, String name, String description, LocalDate created) {
         this.id = id;
@@ -17,6 +18,14 @@ public class Post {
     }
 
     public Post() {
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public int getId() {
