@@ -3,6 +3,7 @@ package ru.job4j.dreamjob.persistence;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.model.City;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -19,11 +20,11 @@ public class CandidateStore {
 
     public CandidateStore() {
         candidates.put(1, new Candidate(1, "Ivan", "Junior",
-                LocalDate.of(2021, 12, 13)));
+                LocalDate.of(2021, 12, 13), new City()));
         candidates.put(2, new Candidate(2, "Dmitry", "Junior",
-                LocalDate.of(2021, 11, 10)));
+                LocalDate.of(2021, 11, 10), new City()));
         candidates.put(3, new Candidate(3, "Sergey", "Middle",
-                LocalDate.of(2021, 12, 20)));
+                LocalDate.of(2021, 12, 20), new City()));
     }
 
     public Collection<Candidate> findAll() {

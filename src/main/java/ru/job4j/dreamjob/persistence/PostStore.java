@@ -2,6 +2,7 @@ package ru.job4j.dreamjob.persistence;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
+import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
 import java.time.LocalDate;
@@ -19,11 +20,11 @@ public class PostStore {
 
     public PostStore() {
         posts.put(1, new Post(1, "Java Developer", "Spring, Java",
-                LocalDate.of(2022, 5, 13)));
+                LocalDate.of(2022, 5, 13), new City()));
         posts.put(2, new Post(2, "Java Developer", "Spring, Java",
-                LocalDate.of(2022, 10, 10)));
+                LocalDate.of(2022, 10, 10), new City()));
         posts.put(3, new Post(3, "Java Developer", "Spring, Java",
-                LocalDate.of(2022, 12, 20)));
+                LocalDate.of(2022, 12, 20), new City()));
     }
 
     public Collection<Post> findAll() {

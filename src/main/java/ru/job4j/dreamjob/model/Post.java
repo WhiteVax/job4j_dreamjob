@@ -9,23 +9,18 @@ public class Post {
     private String description;
     private LocalDate created;
     private boolean visible;
+    private City city;
 
-    public Post(int id, String name, String description, LocalDate created) {
+    public Post(int id, String name, String description, LocalDate created,
+                City city) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.created = created;
+        this.city = city;
     }
 
     public Post() {
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 
     public int getId() {
@@ -58,6 +53,22 @@ public class Post {
 
     public void setCreated(LocalDate created) {
         this.created = created;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     @Override
