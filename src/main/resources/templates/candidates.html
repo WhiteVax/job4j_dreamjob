@@ -47,20 +47,21 @@
                 <thead class="card-header">
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Название</th>
+                    <th scope="col">Имя</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Город</th>
                     <th scope="col">Дата создания</th>
                 </tr>
                 </thead>
                 <tbody>
-
                 <tr th:each="candidate: ${candidates}">
                     <td th:text="${candidate.id}"></td>
                     <td>
                         <a th:href="@{|/formUpdateCandidate/${candidate.id}|}">
                             <i class="fa fa-edit"></i>
                         </a>
+                        <img th:width="150" th:high="150"
+                             th:src="@{|/photoCandidate/${candidate.id}|}">
                         <span th:text="${candidate.name}"></span>
                     </td>
                     <td th:text="${candidate.description}"></td>
