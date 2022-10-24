@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.model.Post;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,11 +20,11 @@ public class PostStore {
 
     public PostStore() {
         posts.put(1, new Post(1, "Java Developer", "Spring, Java",
-                LocalDate.of(2022, 5, 13), new City()));
+                LocalDateTime.now(), new City()));
         posts.put(2, new Post(2, "Java Developer", "Spring, Java",
-                LocalDate.of(2022, 10, 10), new City()));
+                LocalDateTime.now(), new City()));
         posts.put(3, new Post(3, "Java Developer", "Spring, Java",
-                LocalDate.of(2022, 12, 20), new City()));
+                LocalDateTime.now(), new City()));
     }
 
     public Collection<Post> findAll() {
@@ -33,7 +33,7 @@ public class PostStore {
 
     public void add(Post post) {
         post.setId(ID.getAndIncrement());
-        post.setCreated(LocalDate.now());
+        post.setCreated(LocalDateTime.now());
         posts.put(post.getId(), post);
     }
 
