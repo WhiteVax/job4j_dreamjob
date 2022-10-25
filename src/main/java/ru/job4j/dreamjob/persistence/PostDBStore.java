@@ -19,6 +19,11 @@ import org.slf4j.LoggerFactory;
 public class PostDBStore {
 
     private static final Logger LOG = LoggerFactory.getLogger(PostDBStore.class.getName());
+    private static final String SELECT_ALL = "SELECT * FROM post ORDER BY id";
+    private static final String INSERT_POST =
+            "INSERT INTO post(name, description, created, city_id) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_POST = "UPDATE post SET name = ?, city_id = ? WHERE id = ?";
+    private static final String SELECT_WHERE_ID = "SELECT * FROM post WHERE id = ?";
 
     private final BasicDataSource pool;
 
@@ -29,7 +34,7 @@ public class PostDBStore {
     public List<Post> findAllPosts() {
         List<Post> posts = new ArrayList<>();
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement("SELECT * FROM post ORDER BY id")
+             var ps = cn.prepareStatement(SELECT_ALL)
         ) {
             try (var it = ps.executeQuery()) {
                 while (it.next()) {
@@ -44,15 +49,12 @@ public class PostDBStore {
 
     public Post addPost(Post post) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement(
-                     "INSERT INTO post(name, description, created, city_id, city_name) VALUES (?, ?, ?, ?, ?)",
-                     PreparedStatement.RETURN_GENERATED_KEYS)
+             var ps = cn.prepareStatement(INSERT_POST, PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, post.getName());
             ps.setString(2, post.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             ps.setInt(4, post.getCity().getId());
-            ps.setString(5, post.getCity().getName());
             ps.execute();
             try (var id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -67,11 +69,10 @@ public class PostDBStore {
 
     public void updatePost(Post post) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement("UPDATE post SET name = ?, city_id = ?, city_name = ? WHERE id = ?")) {
+             var ps = cn.prepareStatement(UPDATE_POST)) {
             ps.setString(1, post.getName());
             ps.setInt(2, post.getCity().getId());
-            ps.setString(3, post.getCity().getName());
-            ps.setInt(4, post.getId());
+            ps.setInt(3, post.getId());
             ps.execute();
         } catch (SQLException e) {
             LOG.error("Error in updatePost.", e);
@@ -80,7 +81,7 @@ public class PostDBStore {
 
     public Post findByIdPost(int id) {
         try (var cn = pool.getConnection();
-             var ps = cn.prepareStatement("SELECT * FROM post WHERE id = ?")
+             var ps = cn.prepareStatement(SELECT_WHERE_ID)
         ) {
             ps.setInt(1, id);
             try (var it = ps.executeQuery()) {
@@ -99,7 +100,6 @@ public class PostDBStore {
                 it.getString("name"),
                 it.getString("description"),
                 it.getTimestamp("created").toLocalDateTime(),
-                new City(it.getInt("city_id"),
-                        it.getString("city_name")));
+                new City(it.getInt("city_id")));
     }
 }
