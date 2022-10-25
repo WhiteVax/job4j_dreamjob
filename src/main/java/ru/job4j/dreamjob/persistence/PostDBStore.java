@@ -80,19 +80,20 @@ public class PostDBStore {
     }
 
     public Post findByIdPost(int id) {
+        var post = new Post();
         try (var cn = pool.getConnection();
              var ps = cn.prepareStatement(SELECT_WHERE_ID)
         ) {
             ps.setInt(1, id);
             try (var it = ps.executeQuery()) {
                 if (it.next()) {
-                    return createPost(it);
+                    post = createPost(it);
                 }
             }
         } catch (Exception e) {
             LOG.error("Error in findByIdPost.", e);
         }
-        return null;
+        return post;
     }
 
     private Post createPost(ResultSet it) throws SQLException {

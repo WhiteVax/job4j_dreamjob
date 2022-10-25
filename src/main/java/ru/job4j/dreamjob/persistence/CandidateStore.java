@@ -6,6 +6,7 @@ import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.City;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,11 +21,11 @@ public class CandidateStore {
 
     public CandidateStore() {
         candidates.put(1, new Candidate(1, "Ivan", "Junior",
-                LocalDate.of(2021, 12, 13), new City()));
+                LocalDateTime.now(), new City()));
         candidates.put(2, new Candidate(2, "Dmitry", "Junior",
-                LocalDate.of(2021, 11, 10), new City()));
+                LocalDateTime.now(), new City()));
         candidates.put(3, new Candidate(3, "Sergey", "Middle",
-                LocalDate.of(2021, 12, 20), new City()));
+                LocalDateTime.now(), new City()));
     }
 
     public Collection<Candidate> findAll() {
@@ -33,7 +34,7 @@ public class CandidateStore {
 
     public void add(Candidate candidate) {
         candidate.setId(ID.getAndIncrement());
-        candidate.setCreated(LocalDate.now());
+        candidate.setCreated(LocalDateTime.now());
         candidates.put(candidate.getId(), candidate);
     }
 
