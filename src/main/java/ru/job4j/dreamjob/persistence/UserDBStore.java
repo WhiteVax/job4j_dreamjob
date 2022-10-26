@@ -26,6 +26,7 @@ public class UserDBStore {
     private static final String EDIT_USER = "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?";
     private static final String SELECT_WHERE_ID = "SELECT * FROM users WHERE id = ?";
     private static final String SELECT_WHERE_EMAIL = "SELECT * FROM users WHERE email = ?";
+    private static final String SELECT_WHERE_EMAIL_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
 
     private final BasicDataSource pool;
 
@@ -50,7 +51,7 @@ public class UserDBStore {
 
     public User createUser(ResultSet it) throws SQLException {
         return new User(it.getInt("id"),
-                it.getString("user"),
+                it.getString("name"),
                 it.getString("email"),
                 it.getString("password"),
                 it.getTimestamp("created").toLocalDateTime());
@@ -120,6 +121,24 @@ public class UserDBStore {
             }
         } catch (Exception e) {
             LOG.error("Error in findByIdEmail.", e);
+        }
+        return user;
+    }
+
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        Optional<User> user = Optional.empty();
+        try (var cn = pool.getConnection();
+             var ps = cn.prepareStatement(SELECT_WHERE_EMAIL_PASSWORD)
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (var it = ps.executeQuery()) {
+                if (it.next()) {
+                    user = Optional.of(createUser(it));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Error in findByIdEmailAndPassword.", e);
         }
         return user;
     }
