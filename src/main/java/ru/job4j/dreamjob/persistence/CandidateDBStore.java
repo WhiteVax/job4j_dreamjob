@@ -28,7 +28,7 @@ public class CandidateDBStore {
     private static final String UPDATE_CANDIDATE = "UPDATE candidate SET name = ?, description = ?, city_id = ?, photo = ? WHERE id = ?";
     private static final String SELECT_WHERE_ID = "SELECT * FROM candidate WHERE id = ? ";
 
-    private BasicDataSource pool;
+    private final BasicDataSource pool;
 
     public CandidateDBStore(BasicDataSource pool) {
         this.pool = pool;
