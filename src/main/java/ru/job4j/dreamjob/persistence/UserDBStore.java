@@ -91,15 +91,15 @@ public class UserDBStore {
         }
     }
 
-    public User findByIdUser(int id) {
-        var user = new User();
+    public Optional<User> findByIdUser(int id) {
+        Optional<User> user = Optional.empty();
         try (var cn = pool.getConnection();
              var ps = cn.prepareStatement(SELECT_WHERE_ID)
         ) {
             ps.setInt(1, id);
             try (var it = ps.executeQuery()) {
                 if (it.next()) {
-                    user = createUser(it);
+                    user = Optional.of(createUser(it));
                 }
             }
         } catch (Exception e) {
@@ -108,15 +108,15 @@ public class UserDBStore {
         return user;
     }
 
-    public User findByIdEmail(String email) {
-        var user = new User();
+    public Optional<User> findByIdEmail(String email) {
+        Optional<User> user = Optional.empty();
         try (var cn = pool.getConnection();
              var ps = cn.prepareStatement(SELECT_WHERE_EMAIL)
         ) {
             ps.setString(1, email);
             try (var it = ps.executeQuery()) {
                 if (it.next()) {
-                    user = createUser(it);
+                    user = Optional.of(createUser(it));
                 }
             }
         } catch (Exception e) {

@@ -25,11 +25,11 @@ public class UserService {
         return store.addUser(user);
     }
 
-    public User findByIdUser(int id) {
+    public Optional<User> findByIdUser(int id) {
         return store.findByIdUser(id);
     }
 
-    public User findByIdEmail(String email) {
+    public Optional<User> findByIdEmail(String email) {
         return store.findByIdEmail(email);
     }
 
