@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
+import ru.job4j.dreamjob.util.UserSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -41,13 +42,14 @@ public class UserControl {
     }
 
     @GetMapping("/success")
-    public String success(Model model) {
-        model.addAttribute("user", new User());
+    public String success(Model model, HttpSession session) {
+        model.addAttribute("user", UserSession.session(session));
         return "successReg";
     }
 
     @GetMapping("/fail")
-    public String fail(Model model) {
+    public String fail(Model model, HttpSession session) {
+        model.addAttribute("user", UserSession.session(session));
         return "failReg";
     }
 
