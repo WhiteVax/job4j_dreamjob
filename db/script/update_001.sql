@@ -4,7 +4,8 @@ CREATE TABLE IF NOT EXISTS post
     name        VARCHAR,
     description TEXT,
     created     DATE,
-    city_id     INT
+    city_id     INT,
+    visible     BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS candidate

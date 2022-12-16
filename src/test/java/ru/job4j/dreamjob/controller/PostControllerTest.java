@@ -38,7 +38,7 @@ class PostControllerTest {
                 postService,
                 cityService
         );
-        var page = postController.createPost(input);
+        var page = postController.createPost(input, false);
         verify(postService).addPost(input);
         assertThat(page, is("redirect:/posts"));
     }
@@ -55,8 +55,8 @@ class PostControllerTest {
                 postService,
                 cityService
         );
-        postController.createPost(first);
-        var page = postController.updatePost(second);
+        postController.createPost(first, false);
+        var page = postController.updatePost(second, false);
         verify(postService).update(second);
         assertThat("redirect:/posts", is(page));
     }

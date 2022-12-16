@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.*;
 
+
 class PostDBStoreTest {
 
     private PostDBStore store;
@@ -24,7 +25,7 @@ class PostDBStoreTest {
     @Test
     public void whenAddPost() {
         var post = new Post(0, "Java Job", "Java, Spring, Hibernate",
-                LocalDateTime.now(), new City());
+                LocalDateTime.now(), new City(), false);
         store.addPost(post);
         var postInDb = store.findByIdPost(post.getId());
         assertThat(postInDb.getName()).isEqualTo(post.getName());
@@ -33,9 +34,9 @@ class PostDBStoreTest {
     @Test
     void whenFindAllPosts() {
         var first = new Post(1, "first", "Java, Spring, Hibernate",
-                LocalDateTime.now(), new City());
+                LocalDateTime.now(), new City(), false);
         var second = new Post(2, "second", "Java, Spring, Hibernate",
-                LocalDateTime.now(), new City());
+                LocalDateTime.now(), new City(), false);
         store.addPost(first);
         store.addPost(second);
         assertThat(store.findAllPosts().get(0).getName()).isEqualTo(first.getName());
@@ -45,7 +46,7 @@ class PostDBStoreTest {
     @Test
     public void whenUpdatePost() {
         var post = new Post(1, "first", "Java, Spring, Hibernate",
-                LocalDateTime.now(), new City());
+                LocalDateTime.now(), new City(), false);
         store.addPost(post);
         post.setName("second");
         store.updatePost(post);

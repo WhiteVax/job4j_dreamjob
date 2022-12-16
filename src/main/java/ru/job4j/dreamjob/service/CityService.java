@@ -15,6 +15,7 @@ public class CityService {
     private final Map<Integer, City> cities = new ConcurrentHashMap<>();
 
     public CityService() {
+        cities.put(0, new City(0, "Не указан"));
         cities.put(1, new City(1, "Москва"));
         cities.put(2, new City(2, "Тула"));
         cities.put(3, new City(3, "Самара"));

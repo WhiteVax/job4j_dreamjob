@@ -1,7 +1,5 @@
 package ru.job4j.dreamjob.model;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -20,6 +18,16 @@ public class Post {
         this.description = description;
         this.created = created;
         this.city = city;
+    }
+
+    public Post(int id, String name, String description, LocalDateTime created,
+                City city, boolean visible) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.created = created;
+        this.city = city;
+        this.visible = visible;
     }
 
     public Post() {

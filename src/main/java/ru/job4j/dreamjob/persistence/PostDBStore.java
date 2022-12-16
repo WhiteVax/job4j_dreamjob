@@ -21,8 +21,8 @@ public class PostDBStore {
     private static final Logger LOG = LoggerFactory.getLogger(PostDBStore.class.getName());
     private static final String SELECT_ALL = "SELECT * FROM post ORDER BY id";
     private static final String INSERT_POST =
-            "INSERT INTO post(name, description, created, city_id) VALUES (?, ?, ?, ?)";
-    private static final String UPDATE_POST = "UPDATE post SET name = ?, city_id = ? WHERE id = ?";
+            "INSERT INTO post(name, description, created, city_id, visible) VALUES (?, ?, ?, ?, ?)";
+    private static final String UPDATE_POST = "UPDATE post SET name = ?, description = ?, city_id = ?, visible = ? WHERE id = ?";
     private static final String SELECT_WHERE_ID = "SELECT * FROM post WHERE id = ?";
 
     private final BasicDataSource pool;
@@ -55,6 +55,7 @@ public class PostDBStore {
             ps.setString(2, post.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             ps.setInt(4, post.getCity().getId());
+            ps.setBoolean(5, post.isVisible());
             ps.execute();
             try (var id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -71,8 +72,10 @@ public class PostDBStore {
         try (var cn = pool.getConnection();
              var ps = cn.prepareStatement(UPDATE_POST)) {
             ps.setString(1, post.getName());
-            ps.setInt(2, post.getCity().getId());
-            ps.setInt(3, post.getId());
+            ps.setString(2, post.getDescription());
+            ps.setInt(3, post.getCity().getId());
+            ps.setBoolean(4, post.isVisible());
+            ps.setInt(5, post.getId());
             ps.execute();
         } catch (SQLException e) {
             LOG.error("Error in updatePost.", e);
@@ -101,6 +104,7 @@ public class PostDBStore {
                 it.getString("name"),
                 it.getString("description"),
                 it.getTimestamp("created").toLocalDateTime(),
-                new City(it.getInt("city_id")));
+                new City(it.getInt("city_id")),
+                it.getBoolean("visible"));
     }
 }
