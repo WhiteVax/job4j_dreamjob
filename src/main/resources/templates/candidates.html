@@ -75,7 +75,7 @@
                     </td>
                     <td th:text="${candidate.description}"></td>
                     <td th:text="${candidate.city.name}"></td>
-                    <td th:text="${candidate.created}"></td>
+                    <td th:text="${#temporals.format (candidate.created, 'yyyy-MM-dd')}"></td>
                 </tr>
                 </tbody>
             </table>
