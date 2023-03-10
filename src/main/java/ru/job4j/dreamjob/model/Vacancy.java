@@ -4,39 +4,37 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-public class Candidate {
+public class Vacancy {
 
     public static final Map<String, String> COLUMN_MAPPING = Map.of(
             "id", "id",
-            "name", "name",
+            "title", "title",
             "description", "description",
-            "created", "created",
+            "creation_date", "creationDate",
+            "visible", "visible",
             "city_id", "cityId",
             "file_id", "fileId"
     );
     private int id;
-    private String name;
+    private String title;
     private String description;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime creationDate = LocalDateTime.now();
+    private boolean visible;
     private int cityId;
     private int fileId;
 
-    public Candidate(int id, String name, String description, int cityId, int fileId) {
+    public Vacancy(int id, String title, String description, LocalDateTime creationDate, boolean visible,
+                   int cityId, int fileId) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
+        this.creationDate = creationDate;
+        this.visible = visible;
         this.cityId = cityId;
         this.fileId = fileId;
     }
 
-    public Candidate(int id, String name, String description, int cityId) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.cityId = cityId;
-    }
-
-    public Candidate() {
+    public Vacancy() {
     }
 
     public int getId() {
@@ -47,12 +45,12 @@ public class Candidate {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -63,12 +61,20 @@ public class Candidate {
         this.description = description;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public int getCityId() {
@@ -92,15 +98,16 @@ public class Candidate {
         if (this == o) {
             return true;
         }
-        if (o == null || o.getClass() != this.getClass()) {
+        if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Candidate candidate = (Candidate) o;
-        return getId() == candidate.getId();
+        Vacancy vacancy = (Vacancy) o;
+        return id == vacancy.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id);
     }
+
 }

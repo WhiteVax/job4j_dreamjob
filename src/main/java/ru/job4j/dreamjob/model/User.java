@@ -5,17 +5,24 @@ import java.util.Objects;
 
 public class User {
     private int id;
-    private String name;
     private String email;
+    private String name;
     private String password;
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
 
-    public User(int id, String name, String email, String password, LocalDateTime created) {
+    public User(int id, String email, String name, String password, LocalDateTime created) {
         this.id = id;
-        this.name = name;
         this.email = email;
+        this.name = name;
         this.password = password;
         this.created = created;
+    }
+
+    public User(int id, String email, String name, String password) {
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.password = password;
     }
 
     public User() {
@@ -52,6 +59,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
     }
 
     @Override
