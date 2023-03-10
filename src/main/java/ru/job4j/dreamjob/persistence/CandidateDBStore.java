@@ -17,13 +17,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+@Deprecated
 @ThreadSafe
 public class CandidateDBStore {
     private static final Logger LOG = LoggerFactory.getLogger(CandidateStore.class);
 
     private static final String SELECT_ALL = "SELECT * FROM candidate ORDER BY id";
-    private static final  String INSERT_CANDIDATE =
+    private static final String INSERT_CANDIDATE =
             "INSERT INTO candidate (name, description, created, city_id, photo) VALUES(?, ?, ?, ?, ?)";
     private static final String UPDATE_CANDIDATE = "UPDATE candidate SET name = ?, description = ?, city_id = ?, photo = ? WHERE id = ?";
     private static final String SELECT_WHERE_ID = "SELECT * FROM candidate WHERE id = ? ";
@@ -34,6 +34,8 @@ public class CandidateDBStore {
         this.pool = pool;
     }
 
+    /**
+     * @deprecated
     public List<Candidate> findAllCandidates() {
         List<Candidate> candidates = new ArrayList<>();
         try (var cn = pool.getConnection();
@@ -49,6 +51,7 @@ public class CandidateDBStore {
         return candidates;
     }
 
+
     public Candidate addCandidate(Candidate candidate) {
         try (var cn = pool.getConnection();
              var ps = cn.prepareStatement(INSERT_CANDIDATE, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -56,7 +59,7 @@ public class CandidateDBStore {
             ps.setString(2, candidate.getDescription());
             ps.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
             ps.setInt(4, candidate.getCity().getId());
-            ps.setBytes(5, candidate.getPhoto());
+            ps.setInt(5, candidate.getFileId());
             ps.execute();
             try (var id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -100,12 +103,13 @@ public class CandidateDBStore {
         return candidate;
     }
 
-    public Candidate createCandidate(ResultSet set) throws SQLException {
-        return new Candidate(set.getInt("id"),
-                set.getString("name"),
-                set.getString("description"),
-                set.getTimestamp("created").toLocalDateTime(),
-                new City(set.getInt("city_id")),
-                set.getBytes("photo"));
+     public Candidate createCandidate(ResultSet set) throws SQLException {
+    return new Candidate(set.getInt("id"),
+    set.getString("name"),
+    set.getString("description"),
+    set.getTimestamp("created").toLocalDateTime(),
+    new City(set.getInt("city_id")),
+    set.getBytes("photo"));
     }
+     */
 }

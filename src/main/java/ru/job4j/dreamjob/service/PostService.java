@@ -7,21 +7,21 @@ import ru.job4j.dreamjob.persistence.PostDBStore;
 
 import java.util.List;
 
-@Service
+@Deprecated
 @ThreadSafe
 public class PostService {
-    private final CityService cityService;
+    private final SimpleCityService simpleCityService;
     private final PostDBStore store;
 
-    public PostService(CityService cityService, PostDBStore store) {
-        this.cityService = cityService;
+    public PostService(SimpleCityService simpleCityService, PostDBStore store) {
+        this.simpleCityService = simpleCityService;
         this.store = store;
     }
 
     public List<Post> findAll() {
         List<Post> posts = store.findAllPosts();
         posts.forEach(post -> post.setCity(
-                cityService.findById(post.getCity().getId())
+                simpleCityService.findById(post.getCity().getId())
         ));
         return posts;
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
+@Deprecated
 @ThreadSafe
 public class PostStore {
     private static final AtomicInteger ID = new AtomicInteger(1);

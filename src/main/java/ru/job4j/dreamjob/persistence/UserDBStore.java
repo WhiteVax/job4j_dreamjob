@@ -4,7 +4,6 @@ import net.jcip.annotations.ThreadSafe;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.User;
 
 import java.sql.ResultSet;
@@ -16,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+@Deprecated
 @ThreadSafe
 public class UserDBStore {
-    private static final Logger LOG = LoggerFactory.getLogger(PostDBStore.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(UserDBStore.class.getName());
     private static final String SELECT_ALL = "SELECT * FROM users ORDER BY id";
     private static final String INSERT_USER =
             "INSERT INTO users(name, email, password, created) VALUES (?, ?, ?, ?)";
