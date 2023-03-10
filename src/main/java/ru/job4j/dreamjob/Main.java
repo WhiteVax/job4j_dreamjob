@@ -16,39 +16,6 @@ import java.util.Properties;
 @SpringBootApplication
 public class Main {
 
-    private Properties loadDbProperties() {
-        var cfg = new Properties();
-        try (var io = new BufferedReader(new InputStreamReader(
-                        Main.class.getClassLoader()
-                                .getResourceAsStream("db.properties")
-                )
-        )) {
-            cfg.load(io);
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-        try {
-            Class.forName(cfg.getProperty("jdbc.driver"));
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-        return cfg;
-    }
-
-    @Bean
-    public BasicDataSource loadPool() {
-        var cfg = loadDbProperties();
-        var pool = new BasicDataSource();
-        pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
-        pool.setUrl(cfg.getProperty("jdbc.url"));
-        pool.setUsername(cfg.getProperty("jdbc.username"));
-        pool.setPassword(cfg.getProperty("jdbc.password"));
-        pool.setMinIdle(5);
-        pool.setMaxIdle(10);
-        pool.setMaxOpenPreparedStatements(100);
-        return pool;
-    }
-
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
         System.out.println("Go to http://localhost:8080/index");
